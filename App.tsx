@@ -158,44 +158,55 @@ function App() {
   };
   return (
     <SafeAreaProvider>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Busca al {currentAnimal}</Text>
-        <Text style={styles.headerEmoji}>{animalEmojis[currentAnimal]}</Text>
-      </View>
+      {foundedAnimals < 6 && (
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Busca al {currentAnimal}</Text>
+          <Text style={styles.headerEmoji}>{animalEmojis[currentAnimal]}</Text>
+        </View>
+      )}
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={styles.container}>
-        <ViroARSceneNavigator
-          autofocus={true}
-          initialScene={{
-            scene: () => initialScene({ onUpdateCounter: updateCounter }),
-          }}
-          style={styles.arNavigator}
-        />
-      </View>
+      
+      {foundedAnimals < 6 && (
+        <View style={styles.container}>
+          <ViroARSceneNavigator
+        autofocus={true}
+        initialScene={{
+          scene: () => initialScene({ onUpdateCounter: updateCounter }),
+        }}
+        style={styles.arNavigator}
+          />
+        </View>
+      )}
+      {foundedAnimals === 6 && (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text style={{ fontSize: 100, textAlign: 'center', marginBottom: 20 , color: '#fff' }}>🎉</Text>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginHorizontal: 20 , color: '#fff' }}>
+            ¡Felicidades! Has encontrado todos los animales.{"\n\n"}🦁 🐶 🐒 🐰 🐟 🐦
+            </Text>
+        </View>
+      )}
+
       <View style={styles.footer}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
-            width: 200,
           }}
         >
-          <View style={{ }}>
-            <Text
-              style={{
-                backgroundColor: '#FFD275',
-                color: '#000',
-                paddingVertical: 15,
-                paddingHorizontal: 40,
-                borderRadius: 20,
-                fontWeight: 'bold',
-                fontSize: 20,
-                textAlign: 'center',
-              }}
-            >
-              Animales encontrados: {foundedAnimals}/6
-            </Text>
-          </View>
+          <Text
+            style={{
+              backgroundColor: '#FFD275',
+              color: '#000',
+              paddingVertical: 20,
+              paddingHorizontal: 40,
+              fontWeight: 'bold',
+              fontSize: 20,
+              textAlign: 'center',
+              flex: 1,
+            }}
+          > 
+            Animales encontrados: {foundedAnimals}/6
+          </Text>
         </View>
       </View>
     </SafeAreaProvider>
